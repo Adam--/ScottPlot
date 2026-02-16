@@ -1,12 +1,12 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
 	<PropertyGroup>
-		<WindowsSdkPackageVersion>10.0.19041.34</WindowsSdkPackageVersion>
+		<TargetFrameworks>net9.0-android;net9.0</TargetFrameworks>
 
+		<!--<WindowsSdkPackageVersion>10.0.19041.38</WindowsSdkPackageVersion>-->
 		<!-- improve build speed by only building for Windows -->
-		<TargetFrameworks>net8.0-windows10.0.19041.0</TargetFrameworks>
-		<SupportedOSPlatformVersion>10.0.17763.0</SupportedOSPlatformVersion>
-		<TargetPlatformMinVersion>10.0.17763.0</TargetPlatformMinVersion>
+		<!--<TargetFrameworks>net9.0-windows10.0.22000</TargetFrameworks>-->
+		<!--<SupportedOSPlatformVersion>10.0.17763.0</SupportedOSPlatformVersion>-->
+		<!--<TargetPlatformMinVersion>10.0.17763.0</TargetPlatformMinVersion>-->
 
 		<OutputType>Exe</OutputType>
 		<RootNamespace>Sandbox.Maui</RootNamespace>
@@ -22,7 +22,10 @@
 		<AssemblyOriginatorKeyFile>../../Key.snk</AssemblyOriginatorKeyFile>
 		<NoWarn>CS8002</NoWarn>
 	</PropertyGroup>
-
+	<PropertyGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">
+		<TargetPlatformVersion>35.0</TargetPlatformVersion>
+		<SupportedOSPlatformVersion>25.0</SupportedOSPlatformVersion>
+	</PropertyGroup>
 	<ItemGroup>
 		<MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" Color="#512BD4" />
 		<MauiSplashScreen Include="Resources\Splash\splash.svg" Color="#512BD4" BaseSize="128,128" />
@@ -31,15 +34,12 @@
 		<MauiFont Include="Resources\Fonts\*" />
 		<MauiAsset Include="Resources\Raw\**" LogicalName="%(RecursiveDir)%(Filename)%(Extension)" />
 	</ItemGroup>
-
 	<ItemGroup>
 		<PackageReference Include="Microsoft.Maui.Controls" Version="$(MauiVersion)" />
 		<PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="$(MauiVersion)" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="8.0.0" />
 	</ItemGroup>
-
 	<ItemGroup>
-	  <ProjectReference Include="..\..\ScottPlot5 Controls\ScottPlot.Maui\ScottPlot.Maui.csproj" />
+		<ProjectReference Include="..\..\ScottPlot5 Controls\ScottPlot.Maui\ScottPlot.Maui.csproj" />
 	</ItemGroup>
-
 </Project>
